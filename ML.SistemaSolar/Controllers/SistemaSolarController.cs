@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ML.SistemaSolar.DTOs;
+using ML.SistemaSolar.EF;
 using ML.SistemaSolar.Services;
 
 namespace ML.SistemaSolar.Controllers
@@ -13,22 +15,31 @@ namespace ML.SistemaSolar.Controllers
     [ApiController]
     public class SistemaSolarController : ControllerBase
     {
-        private readonly IConsultaClimaService consultaClimaService;
+        private const string NO_HAY_INFO = "No hay información disponible para el día solicitado.";
 
-        public SistemaSolarController(IConsultaClimaService consultaClimaService)
+        private readonly IConsultaClimaService consultaClimaService;
+        private readonly IMapper mapper;
+
+        public SistemaSolarController(IConsultaClimaService consultaClimaService, IMapper mapper)
         {
             this.consultaClimaService = consultaClimaService;
+            this.mapper = mapper;
         }
 
 
         [HttpGet]
-        public ClimaResponse Clima([FromQuery]int dia)
+        public IActionResult Clima([FromQuery]int dia)
         {
-            return new ClimaResponse
+            var condicionClima = consultaClimaService.ObtenerCondicionClimaticaPorDia(dia);
+
+            if (condicionClima != null)
             {
-                Dia = dia,
-                Clima = "No especificado"
-            };
+                return Ok(mapper.Map<CondicionClimatica, ClimaResponse>(condicionClima));
+            }
+            else
+            {
+                return Ok(NO_HAY_INFO);
+            }
         }
 
         [HttpGet]
@@ -50,7 +61,7 @@ namespace ML.SistemaSolar.Controllers
         [HttpGet]
         public int PeriodosCondicionesOptimas()
         {
-            return 0;
+            return consultaClimaService.ObtenerCantidadPeriodosDeCondicionesOptimas();
         }
 
 

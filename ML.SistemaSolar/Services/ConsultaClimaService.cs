@@ -44,5 +44,10 @@ namespace ML.SistemaSolar.Services
         {
             return ObtenerCantidadPeriodosPorCondicion(c => c.HayCondicionesOptimasDeTemperatura);
         }
+
+        public CondicionClimatica ObtenerCondicionClimaticaPorDia(int dia)
+        {
+            return  condicionClimaticaRepository.FindAll().Where(d => d.Dia == dia).SingleOrDefault();
+        }
     }
 }
