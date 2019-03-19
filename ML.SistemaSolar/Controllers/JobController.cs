@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ML.SistemaSolar.DTOs;
 using ML.SistemaSolar.Services;
 
 namespace ML.SistemaSolar.Controllers
@@ -12,6 +13,8 @@ namespace ML.SistemaSolar.Controllers
     [ApiController]
     public class JobController : ControllerBase
     {
+        private const string JobExecuteResponse_Respuesta = "Job ejecutado correctamente.";
+
         private readonly IPrediccionClimaService prediccionClimaService;
 
 
@@ -29,12 +32,22 @@ namespace ML.SistemaSolar.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public bool Execute()
+        public JobExecuteResponse Execute()
         {
-            var hoy = DateTime.Today;
-            var diezAnosDespues = hoy.AddYears(10);
+            try
+            {
+                var hoy = DateTime.Today;
+                var diezAnosDespues = hoy.AddYears(10);
 
-            return prediccionClimaService.PredecirClima(hoy, diezAnosDespues);
+                prediccionClimaService.PredecirClima(hoy, diezAnosDespues);
+
+                return new JobExecuteResponse { Ok = true, Respuesta = JobExecuteResponse_Respuesta };
+            }
+            catch (Exception e)
+            {
+                return new JobExecuteResponse { Ok = false, Respuesta = e.Message };
+            }
+
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using ML.SistemaSolar.Controllers;
 using ML.SistemaSolar.DTOs;
+using ML.SistemaSolar.Profiles;
 using ML.SistemaSolar.Services;
 using System;
 using System.Collections.Generic;
@@ -20,10 +22,10 @@ namespace ML.SistemaSolar.Tests
             consultaClimaService = new ConsultaClimaServiceFake();
             var mockMapper = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new  (new AutoMapperProfile());
+                cfg.AddProfile(new CondicionClimaticaProfile());
             });
-            var mapper = mockMapper.CreateMapper();
 
+            mapper = mockMapper.CreateMapper();
             controller = new SistemaSolarController(consultaClimaService, mapper);
         }
 
@@ -32,7 +34,7 @@ namespace ML.SistemaSolar.Tests
         public void Clima_Return_ClimaResponse()
         {
             var result = controller.Clima(1);
-            Assert.IsType<ClimaResponse>(result);
+            Assert.IsType<OkObjectResult>(result);
         }
 
 

@@ -15,7 +15,9 @@ namespace ML.SistemaSolar.Controllers
     [ApiController]
     public class SistemaSolarController : ControllerBase
     {
-        private const string NO_HAY_INFO = "No hay información disponible para el día solicitado.";
+
+        private const string Problem_Title = "No hay información disponible para el día solicitado.";
+        private const string Problem_Detail = "";
 
         private readonly IConsultaClimaService consultaClimaService;
         private readonly IMapper mapper;
@@ -44,7 +46,19 @@ namespace ML.SistemaSolar.Controllers
             }
             else
             {
-                return Ok(NO_HAY_INFO);
+                var details = new ProblemDetails()
+                {
+                    Type = string.Empty,
+                    Title = Problem_Title,
+                    Detail = Problem_Detail,
+                    Instance = Url.Action("Clima", "SistemaSolar", new { dia = dia }),
+                    Status = 404
+                };
+                return new ObjectResult(details)
+                {
+                    ContentTypes = { "application/problem+json" },
+                    StatusCode = 404,
+                };
             }
         }
 
