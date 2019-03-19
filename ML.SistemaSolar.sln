@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ML.SistemaSolar.Console", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ML.SistemaSolar.DTOs", "ML.SistemaSolar.DTOs\ML.SistemaSolar.DTOs.csproj", "{C8989DA9-1908-4B32-BDB4-CE504C93068D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ML.SistemaSolar.Tests", "ML.SistemaSolar.Tests\ML.SistemaSolar.Tests.csproj", "{59CA4D55-F003-4B85-B6A1-8B80207677D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C8989DA9-1908-4B32-BDB4-CE504C93068D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8989DA9-1908-4B32-BDB4-CE504C93068D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8989DA9-1908-4B32-BDB4-CE504C93068D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59CA4D55-F003-4B85-B6A1-8B80207677D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59CA4D55-F003-4B85-B6A1-8B80207677D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59CA4D55-F003-4B85-B6A1-8B80207677D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59CA4D55-F003-4B85-B6A1-8B80207677D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
