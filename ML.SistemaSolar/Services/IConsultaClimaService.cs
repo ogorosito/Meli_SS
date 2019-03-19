@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ML.SistemaSolar.Services
 {
+    /// <summary>
+    /// Interface del service de consulta de condiciones climaticas.
+    /// </summary>
     public interface IConsultaClimaService
     {
         int ObtenerCantidadPeriodosDeLluvia();

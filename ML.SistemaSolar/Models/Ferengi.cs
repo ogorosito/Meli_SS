@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ML.SistemaSolar.Models
 {
+    /// <summary>
+    /// Planeta Ferengi
+    /// </summary>
     public class Ferengi: Planeta
     {
         public override int DistanciaAlSol => 5;

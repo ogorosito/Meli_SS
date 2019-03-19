@@ -1,0 +1,1 @@
+﻿Archivos generados por Entity Framework para hacer una actualizacion de las tablas al actualizar el Model.

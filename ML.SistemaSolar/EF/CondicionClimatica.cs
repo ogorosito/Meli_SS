@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace ML.SistemaSolar.EF
 {
+    /// <summary>
+    /// Modelo que se persiste al ejecutar el job
+    /// </summary>
     public class CondicionClimatica
     {
 

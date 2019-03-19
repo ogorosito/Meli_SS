@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace ML.SistemaSolar.Profiles
 {
+    /// <summary>
+    /// Configuracion del Mapper entre el model y el dto.
+    /// </summary>
     public class CondicionClimaticaProfile : Profile
     {
         private const string LLUVIA = "Lluvia";

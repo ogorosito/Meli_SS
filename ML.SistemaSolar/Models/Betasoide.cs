@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ML.SistemaSolar.Models
 {
+    /// <summary>
+    /// Planeta Betasoide
+    /// </summary>
     public class Betasoide : Planeta
     {
         public override int DistanciaAlSol => 20;

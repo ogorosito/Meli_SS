@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace ML.SistemaSolar.Repositories
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IBaseRepository<T>
     {
         IQueryable<T> FindAll();
-      //IEnumerable<T> FindBy(Expression<Func<T, bool>> expression);
         void Create(T entity);
         void Update(T entity);
         void Delete(T entity);

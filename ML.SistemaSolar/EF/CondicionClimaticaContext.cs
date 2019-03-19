@@ -6,6 +6,9 @@ using System.Text;
 
 namespace ML.SistemaSolar.EF
 {
+    /// <summary>
+    /// Contexto de EF (Code First)
+    /// </summary>
     public class CondicionClimaticaContext: DbContext
     {
         public CondicionClimaticaContext(DbContextOptions options)

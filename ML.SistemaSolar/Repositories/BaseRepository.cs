@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace ML.SistemaSolar.Repositories
 {
+    /// <summary>
+    /// Repositorio generico
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         protected CondicionClimaticaContext RepositoryContext { get; set; }
@@ -21,10 +25,6 @@ namespace ML.SistemaSolar.Repositories
             return this.RepositoryContext.Set<T>();
         }
 
-        //public IEnumerable<T> FindBy(Expression<Func<T, bool>> expression)
-        //{
-        //    return this.RepositoryContext.Set<T>().Where( Where(expression);
-        //}
 
         public void Create(T entity)
         {

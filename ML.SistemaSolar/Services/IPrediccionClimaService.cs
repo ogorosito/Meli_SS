@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace ML.SistemaSolar.Services
 {
+    /// <summary>
+    /// Interface del service de generacion de prediccion de clima.
+    /// </summary>
     public interface IPrediccionClimaService
     {
-        /// <summary>
-        /// Elimina los datos existentes y agrega nuevos datos entre las fechas establecidas
-        /// </summary>
-        /// <param name="fechaInicio">Fecha de inicio</param>
-        /// <param name="fechaFin">Fecha de fin</param>
-        /// <returns>Operacion exitosa</returns>
+
         bool PredecirClima(DateTime fechaInicio, DateTime fechaFin);
 
         bool HayCondicionesOptimasDeTemperatura(Galaxia galaxia);

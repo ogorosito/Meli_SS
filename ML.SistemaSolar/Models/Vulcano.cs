@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ML.SistemaSolar.Models
 {
+    /// <summary>
+    /// Planeta Vulcano.
+    /// </summary>
     public class Vulcano: Planeta
     {
         public override int DistanciaAlSol => 10;

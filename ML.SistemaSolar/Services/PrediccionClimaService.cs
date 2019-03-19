@@ -24,6 +24,13 @@ namespace ML.SistemaSolar.Services
             this.galaxia = new GalaxiaFactory().CrearGalaxia();
         }
 
+        /// <summary>
+        /// Elimina los datos existentes y agrega nuevos datos entre las fechas establecidas
+        /// </summary>
+        /// <param name="fechaInicio">Fecha de inicio</param>
+        /// <param name="fechaFin">Fecha de fin</param>
+        /// <returns>Operacion exitosa</returns>
+
         public bool PredecirClima(DateTime fechaInicio, DateTime fechaFin)
         {
             try
@@ -37,18 +44,25 @@ namespace ML.SistemaSolar.Services
                 }
                 repositorio.Save();
 
-
+                //hago el loop de los dias enviados como parametro.
                 var i = 0;
                 for (DateTime fecha = fechaInicio; fecha.Date <= fechaFin.Date; fecha = fecha.AddDays(1))
                 {
+                    //Creo la condicion climatica
                     var condicionClimatica = EvalucionCondicionClimatica(galaxia);
                     condicionClimatica.Dia = i;
 
+                    //Agrego la condicion climatica al repo.
                     repositorio.Create(condicionClimatica);
+
+                    //Giro los planetas.
                     galaxia.GirarPlanetas();
+
+                    //Incremento el dia.
                     i++;
                 }
 
+                //Persisto en el repo.
                 repositorio.Save();
 
                 return true;
@@ -66,6 +80,7 @@ namespace ML.SistemaSolar.Services
             var condicionClimatica = new CondicionClimatica();
 
 
+            //Verifica si es periodo de sequia.
             if (EsPeriodoDeSequia(galaxia))
             {
                 condicionClimatica.EsPeriodoDeSequia = true;
@@ -74,6 +89,7 @@ namespace ML.SistemaSolar.Services
             else
             {              
 
+                //Verifica si hay condiciones optimas de temperatura y presion.
                 if (HayCondicionesOptimasDeTemperatura(galaxia))
                 {
                     condicionClimatica.HayCondicionesOptimasDeTemperatura = true;
@@ -81,6 +97,7 @@ namespace ML.SistemaSolar.Services
                 }
                 else
                 {
+                    //Verifica si es periodo de lluvia.
                     var periodoDeLluvia = EsPeriodoDeLluvia(galaxia);
                     if (periodoDeLluvia.EsPeriodoDeLluvia)
                     {
@@ -101,22 +118,20 @@ namespace ML.SistemaSolar.Services
         {
             //Obtiene la obicacion de los 3 planetas y el sol
             var ubicacionBetasoide = ubicacionPlanetaService.ObtenerCoordenadas(galaxia.Betasoide);
-            //Debug.WriteLine($"Distancia al sol --> {galaxia.Betasoide.DistanciaAlSol} - Posicion en grados --> {galaxia.Betasoide.PosicionEnGrados}");
-            //Debug.WriteLine($"Betasoide ({ubicacionBetasoide.X}, {ubicacionBetasoide.Y})");
+
 
             var ubicacionFerengi = ubicacionPlanetaService.ObtenerCoordenadas(galaxia.Ferengi);
-            //Debug.WriteLine($"Distancia al sol --> {galaxia.Ferengi.DistanciaAlSol} - Posicion en grados --> {galaxia.Ferengi.PosicionEnGrados}");
-            //Debug.WriteLine($"Ferengi ({ubicacionFerengi.X}, {ubicacionFerengi.Y})");
+
 
             var ubicacionVulcano = ubicacionPlanetaService.ObtenerCoordenadas(galaxia.Vulcano);
-            //Debug.WriteLine($"Distancia al sol --> {galaxia.Vulcano.DistanciaAlSol} - Posicion en grados --> {galaxia.Vulcano.PosicionEnGrados}");
-            //Debug.WriteLine($"Vulcano ({ubicacionVulcano.X}, {ubicacionVulcano.Y})");
+
 
             var ubicacionSol = ubicacionPlanetaService.ObtenerCoordenadasSol();
 
             //Verifica si los 3 planetas estan alineados.
             if (EstanLosCuerposAlineados(ubicacionBetasoide, ubicacionFerengi, ubicacionVulcano))
             {
+                //Si estan los planetas alineados verifico que no esten alineados al sol.
                 return !EstanLosCuerposAlineados(ubicacionBetasoide, ubicacionFerengi, ubicacionSol);
             }
             else
@@ -134,19 +149,10 @@ namespace ML.SistemaSolar.Services
         {
             //Obtiene la obicacion de los 3 planetas y el sol
             var ubicacionBetasoide = ubicacionPlanetaService.ObtenerCoordenadas(galaxia.Betasoide);
-            Debug.WriteLine($"Distancia al sol --> {galaxia.Betasoide.DistanciaAlSol} - Posicion en grados --> {galaxia.Betasoide.PosicionEnGrados}");
-            Debug.WriteLine($"Betasoide ({ubicacionBetasoide.X}, {ubicacionBetasoide.Y})");
-
 
             var ubicacionFerengi = ubicacionPlanetaService.ObtenerCoordenadas(galaxia.Ferengi);
-            Debug.WriteLine($"Distancia al sol --> {galaxia.Ferengi.DistanciaAlSol} - Posicion en grados --> {galaxia.Ferengi.PosicionEnGrados}");
-            Debug.WriteLine($"Ferengi ({ubicacionFerengi.X}, {ubicacionFerengi.Y})");
 
             var ubicacionVulcano = ubicacionPlanetaService.ObtenerCoordenadas(galaxia.Vulcano);
-            Debug.WriteLine($"Distancia al sol --> {galaxia.Vulcano.DistanciaAlSol} - Posicion en grados --> {galaxia.Vulcano.PosicionEnGrados}");
-            Debug.WriteLine($"Vulcano ({ubicacionVulcano.X}, {ubicacionVulcano.Y})");
-
-            Debug.WriteLine(string.Empty);
 
             var ubicacionSol = ubicacionPlanetaService.ObtenerCoordenadasSol();
 

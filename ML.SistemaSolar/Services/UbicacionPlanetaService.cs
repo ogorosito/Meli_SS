@@ -14,6 +14,13 @@ namespace ML.SistemaSolar.Services
         {
         }
 
+        /// <summary>
+        /// Obtengo las coordenadas del planeta
+        /// http://repositorio.pucp.edu.pe/index/bitstream/handle/123456789/28688/introduccion_al_analisis_cap04.pdf?sequence=10
+        /// Pag 200
+        /// </summary>
+        /// <param name="planeta"></param>
+        /// <returns>Devuelve la ubicacion del planeta.</returns>
         public Ubicacion ObtenerCoordenadas(IPlaneta planeta)
         {
             return new Ubicacion(planeta.DistanciaAlSol * Math.Cos(GradosRadianesConverter(planeta.PosicionEnGrados)), planeta.DistanciaAlSol * Math.Sin(GradosRadianesConverter(planeta.PosicionEnGrados)));

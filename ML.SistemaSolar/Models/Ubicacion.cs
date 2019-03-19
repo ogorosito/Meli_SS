@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ML.SistemaSolar.Models
 {
+    /// <summary>
+    /// Ubicacion en el eje cartesiano (coordenadas).
+    /// </summary>
     public class Ubicacion
     {
         public Ubicacion(double x, double y)

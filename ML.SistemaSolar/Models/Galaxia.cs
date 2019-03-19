@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ML.SistemaSolar.Models
 {
+    /// <summary>
+    /// Galaxia que contiene los 3 planetas.
+    /// </summary>
     public class Galaxia
     {
         public Galaxia()

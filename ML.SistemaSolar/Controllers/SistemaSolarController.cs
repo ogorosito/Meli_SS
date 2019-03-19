@@ -27,6 +27,12 @@ namespace ML.SistemaSolar.Controllers
         }
 
 
+        /// <summary>
+        /// Obtiene la informacion del clima para un dia determinado.
+        /// En caso que el dia enviado en el request no sea valido devuelve el mensaje indicando el error.
+        /// </summary>
+        /// <param name="dia">Dia a consultar</param>
+        /// <returns>Informacion de respuesta</returns>
         [HttpGet]
         public IActionResult Clima([FromQuery]int dia)
         {
@@ -42,6 +48,10 @@ namespace ML.SistemaSolar.Controllers
             }
         }
 
+        /// <summary>
+        /// Devuelve la cantidad de periodos de Lluvia y cual es el dia de mayor precipitacion durante los 10 años.-
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public PeriodosDeLluviaResponse PeriodosDeLluvia()
         {
@@ -52,20 +62,25 @@ namespace ML.SistemaSolar.Controllers
             };
         }
 
+        /// <summary>
+        /// Devuelve la cantidad de Periodos de Sequia en los proximos 10 años-.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public int PeriodosDeSequia()
         {
             return consultaClimaService.ObtenerCantidadPeriodosDeSequia();
         }
 
+        /// <summary>
+        /// Devuelve la cantidad periodos de condiciones optimas de temperatura y presion en los proximos 10 años-
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public int PeriodosCondicionesOptimas()
         {
             return consultaClimaService.ObtenerCantidadPeriodosDeCondicionesOptimas();
         }
-
-
-
 
 
     }

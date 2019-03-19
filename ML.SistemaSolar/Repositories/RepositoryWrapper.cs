@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ML.SistemaSolar.Repositories
 {
+    /// <summary>
+    /// Implementacin de Wrapper del repo.
+    /// </summary>
     public class RepositoryWrapper : IRepositoryWrapper
     {
         private CondicionClimaticaContext repoContext;

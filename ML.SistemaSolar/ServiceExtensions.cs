@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace ML.SistemaSolar
 {
+    /// <summary>
+    /// Registra el repo y los services
+    /// </summary>
     public static class ServiceExtensions
     {
 

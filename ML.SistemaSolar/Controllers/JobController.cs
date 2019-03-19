@@ -14,11 +14,20 @@ namespace ML.SistemaSolar.Controllers
     {
         private readonly IPrediccionClimaService prediccionClimaService;
 
+
+        /// <summary>
+        /// Job Controller 
+        /// </summary>
+        /// <param name="prediccionClimaService">Servicio de Prediccion de Clima</param>
         public JobController(IPrediccionClimaService prediccionClimaService)
         {
             this.prediccionClimaService = prediccionClimaService;
         }
 
+        /// <summary>
+        /// Ejecuta el Job de Prediccion de Clima durante 10 años.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public bool Execute()
         {
