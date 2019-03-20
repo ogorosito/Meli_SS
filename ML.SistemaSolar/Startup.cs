@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ML.SistemaSolar.EF;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace ML.SistemaSolar
 {
@@ -26,6 +27,11 @@ namespace ML.SistemaSolar
             services.AddDbContext<CondicionClimaticaContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:CondicionesClimaticasDB"]));
             services.ConfigureRepositoryWrapper();
             services.ConfigureServices();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "MELI - Sistema Solar", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +46,16 @@ namespace ML.SistemaSolar
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MELI - Sistema Solar V1");
+            });
 
             app.UseHttpsRedirection();
             app.UseMvc();

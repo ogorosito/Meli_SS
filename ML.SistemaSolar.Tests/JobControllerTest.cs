@@ -20,7 +20,7 @@ namespace ML.SistemaSolar.Tests
         public void Execute_ResultOk()
         {
             var result = controller.Execute();
-            Assert.True(result);
+            Assert.True(result.Ok);
         }
     }
 }

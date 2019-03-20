@@ -33,46 +33,39 @@ namespace ML.SistemaSolar.Services
 
         public bool PredecirClima(DateTime fechaInicio, DateTime fechaFin)
         {
-            try
+
+            var repositorio = repositoryWrapper.CondicionClima;
+
+            //Elimino toda la info.
+            foreach (var item in repositorio.FindAll())
             {
-                var repositorio = repositoryWrapper.CondicionClima;
-
-                //Elimino toda la info.
-                foreach (var item in repositorio.FindAll())
-                {
-                    repositorio.Delete(item);
-                }
-                repositorio.Save();
-
-                //hago el loop de los dias enviados como parametro.
-                var i = 0;
-                for (DateTime fecha = fechaInicio; fecha.Date <= fechaFin.Date; fecha = fecha.AddDays(1))
-                {
-                    //Creo la condicion climatica
-                    var condicionClimatica = EvalucionCondicionClimatica(galaxia);
-                    condicionClimatica.Dia = i;
-
-                    //Agrego la condicion climatica al repo.
-                    repositorio.Create(condicionClimatica);
-
-                    //Giro los planetas.
-                    galaxia.GirarPlanetas();
-
-                    //Incremento el dia.
-                    i++;
-                }
-
-                //Persisto en el repo.
-                repositorio.Save();
-
-                return true;
+                repositorio.Delete(item);
             }
-            catch (Exception e)
+            repositorio.Save();
+
+            //hago el loop de los dias enviados como parametro.
+            var i = 0;
+            for (DateTime fecha = fechaInicio; fecha.Date <= fechaFin.Date; fecha = fecha.AddDays(1))
             {
-                ///TODO --> agregar la exception al log.
-                return false;                
+                //Creo la condicion climatica
+                var condicionClimatica = EvalucionCondicionClimatica(galaxia);
+                condicionClimatica.Dia = i;
+
+                //Agrego la condicion climatica al repo.
+                repositorio.Create(condicionClimatica);
+
+                //Giro los planetas.
+                galaxia.GirarPlanetas();
+
+                //Incremento el dia.
+                i++;
             }
-           
+
+            //Persisto en el repo.
+            repositorio.Save();
+
+            return true;
+
         }
 
         private CondicionClimatica EvalucionCondicionClimatica(Galaxia galaxia)
@@ -87,7 +80,7 @@ namespace ML.SistemaSolar.Services
                 Debug.WriteLine("PERIODO DE SEQUIA!!");
             }
             else
-            {              
+            {
 
                 //Verifica si hay condiciones optimas de temperatura y presion.
                 if (HayCondicionesOptimasDeTemperatura(galaxia))

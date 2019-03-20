@@ -31,7 +31,7 @@ namespace ML.SistemaSolar.Controllers
         /// Ejecuta el Job de Prediccion de Clima durante 10 años.
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         public JobExecuteResponse Execute()
         {
             try
